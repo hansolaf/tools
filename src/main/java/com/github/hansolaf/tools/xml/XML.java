@@ -145,26 +145,43 @@ public class XML {
     /* Lookup */
 
     /**
-     * Finds any immediate children of this node with the given tagName
+     * Finds first immediate child of this node with the given tagName
      */
     public XML find(String tagName) {
         return find(tagName, null);
     }
 
     /**
-     * Finds any immediate children of this node with the given tagName and namespaceURI.
+     * Finds first immediate child of this node with the given tagName and namespaceURI.
      * If namespaceURI is null namespaces are ignored during the search.
      */
     public XML find(String tagName, String namespaceURI) {
+        List<XML> matches = findAll(tagName, namespaceURI);
+        return matches.isEmpty() ? null : matches.get(0);
+    }
+
+    /**
+     * Finds all immediate children of this node with the given tagName
+     */
+    public List<XML> findAll(String tagName) {
+        return findAll(tagName, null);
+    }
+
+    /**
+     * Finds all immediate children of this node with the given tagName and namespaceURI.
+     * If namespaceURI is null namespaces are ignored during the search.
+     */
+    public List<XML> findAll(String tagName, String namespaceURI) {
         NodeList children = node.getChildNodes();
+        List<XML> matches = new ArrayList<>();
         for (int i = 0; i < children.getLength(); i++) {
             Node child = children.item(i);
             boolean namespaceMatch = namespaceURI == null || namespaceURI.equals(child.getNamespaceURI());
             String childname = child.getNamespaceURI() == null ? child.getNodeName() : child.getLocalName();
             if (namespaceMatch && tagName.equals(childname))
-                return new XML(child);
+                matches.add(new XML(child));
         }
-        return null;
+        return matches;
     }
 
     /**

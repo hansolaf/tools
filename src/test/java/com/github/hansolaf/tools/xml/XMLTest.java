@@ -65,6 +65,7 @@ public class XMLTest {
     @Test
     public void findFindsNodesCorrectly() {
         assertEquals("15", doc.find("body", FOO_NS).find("request").find("id").text());
+        assertEquals(2, doc.find("body").find("request").findAll("id").size());
     }
 
     @Test
