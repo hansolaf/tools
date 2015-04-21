@@ -105,4 +105,10 @@ public class XMLTest {
         assertNull(doc.xpath("//non-existing", XPathConstants.NODE, nsMapping));
     }
 
+    @Test
+    public void canAccessAttributes() {
+        assertEquals("text", doc.find("header").find("Security").find("Credentials").attribute("type"));
+        assertEquals("v1", doc.find("body").find("request").find("data").attribute("ver"));
+    }
+
 }

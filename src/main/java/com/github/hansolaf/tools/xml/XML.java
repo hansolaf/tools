@@ -92,6 +92,14 @@ public class XML {
         return node.getTextContent();
     }
 
+    /**
+     * Gets the attribute value (or null if it doesn't exist)
+     */
+    public String attribute(String name) {
+        Node attrib = node.getAttributes().getNamedItem(name);
+        return attrib == null ? null : attrib.getTextContent();
+    }
+
     /* Mutators */
 
     /**
