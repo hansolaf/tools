@@ -275,6 +275,7 @@ public class XML {
         protected DocumentBuilder initialValue() {
             try {
                 DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+                dbf.setNamespaceAware(true);
                 // Disable DTDs and external entities
                 dbf.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
                 dbf.setXIncludeAware(false);

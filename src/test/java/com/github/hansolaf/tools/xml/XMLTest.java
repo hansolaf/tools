@@ -7,9 +7,8 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.*;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import static com.github.hansolaf.tools.xml.XML.node;
+import static org.junit.Assert.*;
 
 public class XMLTest {
 
@@ -71,6 +70,12 @@ public class XMLTest {
     @Test
     public void findWithoutNamespacesMatchesRegardlessOfNamespace() {
         assertEquals("15", doc.find("body").find("request").find("id").text());
+    }
+
+    @Test
+    public void findsNodesWithNamespace() {
+        XML docReadFromString = node(new ByteArrayInputStream(docString.getBytes()));
+        assertNotNull(docReadFromString.find("header", "http://foobar.com/foo/bar"));
     }
 
     @Test
